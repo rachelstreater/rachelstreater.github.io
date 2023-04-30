@@ -9,15 +9,38 @@ profile:
   image: prof_pic.jpg
   image_circular: false # crops the image to make it circular
   address: >
-    <p>ML Engineer</p>
+    <p>Senior ML Engineer</p>
+    <p>AI Lead @ Deloiite</p>
     <p>London</p>
-    <p></p>
 
 news: true  # includes a list of news items
 latest_posts: true  # includes a list of the newest posts
-selected_papers: true # includes a list of papers marked as "selected={true}"
+selected_papers: false # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
+
+
+Education:
+
+- BSc Mathmatics
+- MSc Data Analytics
+- PhD offer starting September 2023
+
+Work Experience:
+
+- Software Engineer
+- Data Scientist
+- Senior Machine Learning Engineer
+
+Industry experience: 
+
+ - Automotive 
+ - Healthcare
+ - Sustainability & smart cities
+ - Telecommunications
+ - Marketing
+
+
 
 Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
 
