@@ -23,9 +23,15 @@ social: true  # includes social icons at the bottom of the page
 
 <br>
 
-I am a senior machine learning engineer focussing on building and deploying models for sustainability and smart cities. I have worked on a wide range of projects across a number of industries including segmentation, predictive modelling and geospatial analytics. 
+Senior machine learning engineer focussing on building and deploying models for sustainability and smart cities. I have worked on a wide range of projects across a number of industries including customer segmentation, churn modelling and geospatial analytics. 
 
-I bring a unique combination of technical expertise and creativity to a team and I find joy in solving complex problems using clean and efficient code. I also love to learn and spend a lot of time reading, exploring and teaching. <br>
+I bring a unique combination of technical expertise and creativity to a team and find joy in solving complex problems with clean and efficient code. I  love to learn and spend much of my free time reading and testing methods in machine learning, software engineering and data science. 
+
+
+
+<br>
+
+
 
 **Primary skills:** statistics, mathematics, artificial intelligence <br>
 **Academic expertise:** machine learning, number theory, game theory, advanced statistics, linear algebra <br>
