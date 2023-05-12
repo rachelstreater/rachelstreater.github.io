@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://www.rachelstreater.com/sitemap.xml
+Sitemap: https://rachelstreater.com/sitemap.xml
