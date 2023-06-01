@@ -23,20 +23,14 @@ We have a dataframe with location in X/Y format, which we want to convert to Lat
 | 197901A1CBC96    |            |             |    300370 |     146000 |
 ````
 
-### Imports: 
+### Create a function to query the API: 
+Need to define the api url and parameters.
 
 ```markdown
 import pandas as pd
 import numpy as np
 import requests
-import logging
-import pyproj
-```
 
-### Create a function to query the API: 
-Need to define the api url and parameters.
-
-```markdown
 def bng_to_lat_lon(params):
     try:
         api_url = f'http://webapps.bgs.ac.uk/data/webservices/CoordConvert_LL_BNG.cfc?method=BNGtoLatLng'
