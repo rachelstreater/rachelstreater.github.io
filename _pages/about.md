@@ -23,11 +23,9 @@ social: true  # includes social icons at the bottom of the page
 
 <br>
 
-Senior machine learning engineer focussing on building and deploying models for clients across many industries. I have worked on a wide range of projects across a number of industries including customer segmentation, churn modelling and geospatial analytics. 
+Senior machine learning engineer focussing on building and deploying models for clients across many industries. I have worked on a wide range of projects including customer segmentation, churn modelling and geospatial analytics. 
 
-I bring a unique combination of technical expertise and creativity to a team and find joy in solving complex problems with clean and efficient code. I  love to learn and spend much of my free time reading and testing methods in machine learning, software engineering and data science. 
-
-
+I bring a unique combination of technical expertise and creativity to a team and find joy in solving complex problems with clean and efficient code. I spend much of my free time reading and testing methods in machine learning, software engineering and data science. 
 
 <br>
 
