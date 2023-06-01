@@ -2,8 +2,8 @@
 layout: post
 title:  Code Snippet - Using a geolocation API with Pandas
 date:   2023-06-01
-description: PyProj vs. Geolocation API in Pandas to Convert Coordinates
-tags: python, geospatial
+description: Geolocation API in Pandas to convert coordinates with comparison to pyproj package
+#tags: python, geospatial
 categories: python, geospatial
 ---
 
