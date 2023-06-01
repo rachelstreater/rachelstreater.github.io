@@ -23,7 +23,7 @@ def bng_to_lat_lon(params):
         response = requests.get(api_url, params=params)
         return [response.json()['LATITUDE'], response.json()['LONGITUDE']]
     except requests.exceptions.RequestException as e:
-
+        raise SystemExit(e)
 ```
 
 Build the request parameters by creating a dictionary from the pandas dataframe:
