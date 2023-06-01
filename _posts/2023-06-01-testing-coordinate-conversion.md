@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Code Snippet - Using a geolocation API with Pandas
+title:  Code Snippet - Using an API with Pandas
 date:   2023-06-01
 description: Geolocation API in Pandas to convert coordinates with comparison to pyproj package
 tags: python, geospatial
