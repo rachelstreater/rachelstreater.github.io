@@ -1,94 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://rachelstreater.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://rachelstreater.com/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-06-01T12:47:27+00:00</updated><id>https://rachelstreater.com/feed.xml</id><title type="html">blank</title><subtitle>Senior Machine Learning Engineer based in London
-</subtitle><entry><title type="html">code snippet - using an API</title><link href="https://rachelstreater.com/blog/2023/testing-coordinate-conversion/" rel="alternate" type="text/html" title="code snippet - using an API" /><published>2023-06-01T00:00:00+00:00</published><updated>2023-06-01T00:00:00+00:00</updated><id>https://rachelstreater.com/blog/2023/testing-coordinate-conversion</id><content type="html" xml:base="https://rachelstreater.com/blog/2023/testing-coordinate-conversion/"><![CDATA[<p>Code snippet to replace data in a pandas dataframe with the response from an API call.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://rachelstreater.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://rachelstreater.com/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-06-01T12:57:39+00:00</updated><id>https://rachelstreater.com/feed.xml</id><title type="html">blank</title><subtitle>Senior Machine Learning Engineer based in London
+</subtitle><entry><title type="html">Code Snippet - Using a geolocation API with Pandas</title><link href="https://rachelstreater.com/blog/2023/testing-coordinate-conversion/" rel="alternate" type="text/html" title="Code Snippet - Using a geolocation API with Pandas" /><published>2023-06-01T00:00:00+00:00</published><updated>2023-06-01T00:00:00+00:00</updated><id>https://rachelstreater.com/blog/2023/testing-coordinate-conversion</id><content type="html" xml:base="https://rachelstreater.com/blog/2023/testing-coordinate-conversion/"><![CDATA[<p>Code snippet to replace data in a pandas dataframe with the response from an API call.</p>
 
 <h3 id="the-data">The data:</h3>
 
 <p>We have a dataframe with location in X/Y format, which we want to convert to Latitude/Longitude for plotting and analysis.</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>location_index</td>
-      <td>latitude</td>
-      <td>longitude</td>
-      <td>easting</td>
-      <td>northing</td>
-      <td>\n</td>
-    </tr>
-    <tr>
-      <td>:—————–</td>
-      <td>———–:</td>
-      <td>————:</td>
-      <td>———-:</td>
-      <td>———–:</td>
-      <td>\n</td>
-    </tr>
-    <tr>
-      <td>197901A1BAW34</td>
-      <td> </td>
-      <td> </td>
-      <td>198460</td>
-      <td>894000</td>
-      <td>\n</td>
-    </tr>
-    <tr>
-      <td>197901A1BFD77</td>
-      <td> </td>
-      <td> </td>
-      <td>406380</td>
-      <td>307000</td>
-      <td>\n</td>
-    </tr>
-    <tr>
-      <td>197901A1BGC20</td>
-      <td> </td>
-      <td> </td>
-      <td>281680</td>
-      <td>440000</td>
-      <td>\n</td>
-    </tr>
-    <tr>
-      <td>197901A1BGF95</td>
-      <td> </td>
-      <td> </td>
-      <td>153960</td>
-      <td>795000</td>
-      <td>\n</td>
-    </tr>
-    <tr>
-      <td>197901A1CBC96</td>
-      <td> </td>
-      <td> </td>
-      <td>300370</td>
-      <td>146000</td>
-      <td> </td>
-    </tr>
-  </tbody>
-</table>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| location_index   |   latitude |   longitude |   easting |   northing |<span class="se">\n</span>
+|:-----------------|-----------:|------------:|----------:|-----------:|<span class="se">\n</span>
+| 197901A1BAW34    |            |             |    198460 |     894000 |<span class="se">\n</span>
+| 197901A1BFD77    |            |             |    406380 |     307000 |<span class="se">\n</span>
+| 197901A1BGC20    |            |             |    281680 |     440000 |<span class="se">\n</span>
+| 197901A1BGF95    |            |             |    153960 |     795000 |<span class="se">\n</span>
+| 197901A1CBC96    |            |             |    300370 |     146000 |
+</code></pre></div></div>
 
 <h3 id="imports">Imports:</h3>
 
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">```</span><span class="nl">python
-</span><span class="kn">import</span> <span class="n">pandas</span> <span class="k">as</span> <span class="n">pd</span>
-<span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
-<span class="kn">import</span> <span class="n">requests</span>
-<span class="kn">import</span> <span class="n">logging</span>
-<span class="kn">import</span> <span class="n">pyproj</span>
-<span class="p">```</span>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import pandas as pd
+import numpy as np
+import requests
+import logging
+import pyproj
 </code></pre></div></div>
 
 <h3 id="create-a-function-to-query-the-api">Create a function to query the API:</h3>
 <p>Need to define the api url and parameters.</p>
 
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">```</span><span class="nl">python
-</span><span class="k">def</span> <span class="nf">bng_to_lat_lon</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">api_url</span> <span class="o">=</span> <span class="sa">f</span><span class="sh">'</span><span class="s">http://webapps.bgs.ac.uk/data/webservices/CoordConvert_LL_BNG.cfc?method=BNGtoLatLng</span><span class="sh">'</span>
-        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">api_url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">response</span><span class="p">.</span><span class="nf">json</span><span class="p">()[</span><span class="sh">'</span><span class="s">LATITUDE</span><span class="sh">'</span><span class="p">],</span> <span class="n">response</span><span class="p">.</span><span class="nf">json</span><span class="p">()[</span><span class="sh">'</span><span class="s">LONGITUDE</span><span class="sh">'</span><span class="p">]]</span>
-    <span class="k">except</span> <span class="n">requests</span><span class="p">.</span><span class="n">exceptions</span><span class="p">.</span><span class="n">RequestException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="nc">SystemExit</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-<span class="p">```</span>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def bng_to_lat_lon(params):
+    try:
+        api_url = f'http://webapps.bgs.ac.uk/data/webservices/CoordConvert_LL_BNG.cfc?method=BNGtoLatLng'
+        response = requests.get(api_url, params=params)
+        return [response.json()['LATITUDE'], response.json()['LONGITUDE']]
+    except requests.exceptions.RequestException as e:
+
 </code></pre></div></div>
 
 <h3 id="build-the-request-parameters-by-creating-a-dictionary-from-the-pandas-dataframe">Build the request parameters by creating a dictionary from the pandas dataframe:</h3>
@@ -113,78 +57,24 @@
 
 <h3 id="the-result">The result:</h3>
 
-<table>
-  <tbody>
-    <tr>
-      <td>accident_index</td>
-      <td>latitude</td>
-      <td>longitude</td>
-      <td>easting</td>
-      <td>northing</td>
-      <td>\n</td>
-    </tr>
-    <tr>
-      <td>:—————–</td>
-      <td>———–:</td>
-      <td>————:</td>
-      <td>———-:</td>
-      <td>———–:</td>
-      <td>\n</td>
-    </tr>
-    <tr>
-      <td>197901A1BAW34</td>
-      <td>57.8898</td>
-      <td>-5.40163</td>
-      <td>198460</td>
-      <td>894000</td>
-      <td>\n</td>
-    </tr>
-    <tr>
-      <td>197901A1BFD77</td>
-      <td>52.6607</td>
-      <td>-1.90711</td>
-      <td>406380</td>
-      <td>307000</td>
-      <td>\n</td>
-    </tr>
-    <tr>
-      <td>197901A1BGC20</td>
-      <td>53.8427</td>
-      <td>-3.79979</td>
-      <td>281680</td>
-      <td>440000</td>
-      <td>\n</td>
-    </tr>
-    <tr>
-      <td>197901A1BGF95</td>
-      <td>56.9805</td>
-      <td>-6.05094</td>
-      <td>153960</td>
-      <td>795000</td>
-      <td>\n</td>
-    </tr>
-    <tr>
-      <td>197901A1CBC96</td>
-      <td>51.2045</td>
-      <td>-3.42749</td>
-      <td>300370</td>
-      <td>146000</td>
-      <td> </td>
-    </tr>
-  </tbody>
-</table>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| accident_index   |   latitude |   longitude |   easting |   northing |<span class="se">\n</span>
+|:-----------------|-----------:|------------:|----------:|-----------:|<span class="se">\n</span>
+| 197901A1BAW34    |    57.8898 |    -5.40163 |    198460 |     894000 |<span class="se">\n</span>
+| 197901A1BFD77    |    52.6607 |    -1.90711 |    406380 |     307000 |<span class="se">\n</span>
+| 197901A1BGC20    |    53.8427 |    -3.79979 |    281680 |     440000 |<span class="se">\n</span>
+| 197901A1BGF95    |    56.9805 |    -6.05094 |    153960 |     795000 |<span class="se">\n</span>
+| 197901A1CBC96    |    51.2045 |    -3.42749 |    300370 |     146000 |
+</code></pre></div></div>
 
 <h3 id="a-better-way-for-this-particular-task">A better way for this particular task:</h3>
 
 <p>In benchmark testing, the previous implementation processed 512 rows per minute, whereas the following method was able to process 40,814 rows per minute. The bottleneck was the API calls which were running at around 8 per second.</p>
 
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">```</span><span class="nl">python
-</span><span class="kn">from</span> <span class="n">pyproj</span> <span class="kn">import</span> <span class="n">Transformer</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">pyproj</span> <span class="kn">import</span> <span class="n">Transformer</span>
 <span class="n">transformer</span> <span class="o">=</span> <span class="n">Transformer</span><span class="p">.</span><span class="nf">from_crs</span><span class="p">(</span><span class="sh">"</span><span class="s">EPSG:27700</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">EPSG:4326</span><span class="sh">"</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">request</span><span class="p">.</span><span class="n">index</span><span class="p">:</span>
     <span class="n">lat_lon</span> <span class="o">=</span> <span class="n">transformer</span><span class="p">.</span><span class="nf">transform</span><span class="p">(</span><span class="n">accident</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="sh">'</span><span class="s">easting</span><span class="sh">'</span><span class="p">],</span> <span class="n">accident</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="sh">'</span><span class="s">northing</span><span class="sh">'</span><span class="p">])</span>
     <span class="n">accident</span><span class="p">[</span><span class="sh">'</span><span class="s">latitude</span><span class="sh">'</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">lat_lon</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">accident</span><span class="p">[</span><span class="sh">'</span><span class="s">longitude</span><span class="sh">'</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">lat_lon</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="p">```</span>
-</code></pre></div></div>]]></content><author><name></name></author><category term="python," /><category term="geospatial" /><category term="images" /><summary type="html"><![CDATA[using a geolocation API in pandas to convert coordinates]]></summary></entry></feed>
+</code></pre></div></div>]]></content><author><name></name></author><category term="python," /><category term="geospatial" /><category term="python," /><category term="geospatial" /><summary type="html"><![CDATA[Using a geolocation API in pandas to convert coordinates]]></summary></entry></feed>
